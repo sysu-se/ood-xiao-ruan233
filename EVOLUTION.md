@@ -89,17 +89,6 @@ UI 组件 → Game.getHint() → Sudoku.getHint() → Sudoku.getForcedMove() / S
 | 是否仍然使用线性栈？ | 是，主历史和探索历史都是线性栈 |
 | 是否引入了树状分支？ | 是，`Explore` 支持 `_parent` / `_children` 形成树状结构 |
 
-**树状分支结构示意：**
-主游戏 (Game)
-    │
-    ├── Explore 分支 A (尝试 5)
-    │       │
-    │       ├── 子分支 A1 (尝试 3) → 失败
-    │       │
-    │       └── 子分支 A2 (尝试 7) → 成功
-    │
-    └── Explore 分支 B (尝试 9) → 放弃
-
 ## 三、Homework 1 中的设计局限
 
 | 局限 | 说明 | 改进方向 |
@@ -134,25 +123,23 @@ UI 组件 → Game.getHint() → Sudoku.getHint() → Sudoku.getForcedMove() / S
 | 为探索模式提供优雅的状态建模 | 树状结构 + 失败路径记忆 |
 
 ## 六、代码结构总结
-src/domain/
-├── Sudoku.js // 核心领域对象：数独规则 + 提示计算
-├── Game.js // 游戏会话：主历史 + 探索模式管理
-├── Explore.js // 探索类：独立历史 + 树状分支 + 失败记忆
-├── History.js // 历史记录：线性栈
-└── index.js // 导出
 
-src/node_modules/@sudoku/stores/
-├── grid.js // 接入层：暴露领域方法给 UI
-├── candidates.js // 笔记模式（独立系统）
-├── hints.js // 提示次数管理
-└── game.js // 游戏状态 store
+**src/domain/**
+- Sudoku.js : 核心领域对象，数独规则 + 提示计算
+- Game.js : 游戏会话，主历史 + 探索模式管理
+- Explore.js : 探索类，独立历史 + 树状分支 + 失败记忆
+- History.js : 历史记录，线性栈
+- index.js : 导出
 
-src/components/
-├── Controls/
-│ ├── Keyboard.svelte // 键盘输入 + 笔记模式 + 探索模式
-│ └── ActionBar/
-│ └── Actions.svelte // 提示按钮 + 探索控制栏
-└── Modal/Types/
-├── Hint.svelte // 提示弹窗
-├── Explore.svelte // 探索模式选择弹窗
-└── Alert.svelte // 简单提示弹窗
+**src/node_modules/@sudoku/stores/**
+- grid.js : 接入层，暴露领域方法给 UI
+- candidates.js : 笔记模式（独立系统）
+- hints.js : 提示次数管理
+- game.js : 游戏状态 store
+
+**src/components/**
+- Controls/Keyboard.svelte : 键盘输入 + 笔记模式 + 探索模式
+- Controls/ActionBar/Actions.svelte : 提示按钮 + 探索控制栏
+- Modal/Types/Hint.svelte : 提示弹窗
+- Modal/Types/Explore.svelte : 探索模式选择弹窗
+- Modal/Types/Alert.svelte : 简单提示弹窗
