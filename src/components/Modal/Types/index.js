@@ -5,13 +5,19 @@ import confirm from './Confirm.svelte';
 import prompt from './Prompt.svelte';
 import welcome from './Welcome.svelte';
 import gameover from './GameOver.svelte';
+import hint from './Hint.svelte';
+import explore from './Explore.svelte';
+import alert from './Alert.svelte';
 
 export default {
-	share,
-	qrcode,
-	settings,
-	confirm,
-	prompt,
-	welcome,
-	gameover
-}
+  share,
+  qrcode,
+  settings,
+  confirm,
+  prompt,
+  welcome,
+  gameover,
+  hint,
+  explore,
+  alert,
+};
